@@ -1,9 +1,6 @@
 package ru.maxkramer;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.ListIterator;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by maxkr on 4/23/2017.
@@ -57,6 +54,7 @@ public class Main {
             return;
         }else{
             System.out.println(" Сейчас играет " + listIterator.next().toString());
+            printMenu();
         }
         while(!quit){
             int action = scanner.nextInt();
@@ -96,14 +94,58 @@ public class Main {
                     }
                     break;
                 case 3:
+                    if(forward){
+                        if(listIterator.hasPrevious()){
+                            System.out.println("Сейчас играет " + listIterator.previous().toString());
+                            forward = false;
+                        }else{
+                            System.out.println("Начало плейлиста");
+                        }
+                    }else{
+                        if(listIterator.hasNext()) {
+                            System.out.println("Сейчас играет " + listIterator.next().toString());
+                            forward = true;
+                        } else {
+                            System.out.println("Конец плейлиста");
+                        }
+                    }
                     break;
                 case 4:
-//                    printList(playList);
+                    printList(playList);
                     break;
                 case 5:
-//                    printMenu();
+                    printMenu();
+                    break;
+                case 6:
+                    if(playList.size() > 0){
+                        listIterator.remove();
+                        if(listIterator.hasNext()){
+                            System.out.println("Сейчас играет " + listIterator.next());
+                        }else if(listIterator.hasPrevious()){
+                            System.out.println("Сейчас играет " + listIterator.previous());
+                        }
+                    }
                     break;
             }
         }
+    }
+    private static void printMenu(){
+        System.out.println("Доступные действия:\nнажмите");
+        System.out.println("0 - выход\n" +
+            "1 - следующий трек\n" +
+            "2 - предыдущий трек\n" +
+            "3 - проиграть снова\n" +
+            "4 - показать все треки\n" +
+            "5 - показать доступные действия" +
+            "6 - удалить текущий трек");
+    }
+
+    private static void printList(LinkedList<Song> playList){
+        Iterator<Song> iterator = playList.iterator();
+        System.out.println("==================================");
+        while(iterator.hasNext()){
+            System.out.println(iterator.next().toString());
+        }
+        System.out.println("==================================");
     }
 }
