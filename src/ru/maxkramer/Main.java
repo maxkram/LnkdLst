@@ -3,6 +3,7 @@ package ru.maxkramer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Scanner;
 
 /**
  * Created by maxkr on 4/23/2017.
@@ -47,12 +48,62 @@ public class Main {
         play(playList);
     }
     private static void play(LinkedList<Song> playList){
+        Scanner scanner = new Scanner(System.in);
+        boolean quit = false;
+        boolean forward = true;
         ListIterator<Song> listIterator = playList.listIterator();
         if(playList.size() == 0){
             System.out.println("Нет треков в плейлисте");
             return;
         }else{
-            System.out.println("Сейчас играет " + listIterator.next().toString());
+            System.out.println(" Сейчас играет " + listIterator.next().toString());
+        }
+        while(!quit){
+            int action = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (action) {
+                case 0:
+                    System.out.println("Плейлист закончен");
+                    quit = true;
+                    break;
+                case 1:
+                    if(!forward){
+                        if(listIterator.hasNext()){
+                            listIterator.next();
+                        }
+                        forward = true;
+                    }
+                    if(listIterator.hasNext()){
+                        System.out.println("Сейчас играет " + listIterator.next().toString());
+                    }else{
+                        System.out.println("Конец плейлиста");
+                        forward = false;
+                    }
+                    break;
+                case 2:
+                    if(forward){
+                        if(listIterator.hasPrevious()){
+                            listIterator.previous();
+                        }
+                        forward = false;
+                    }
+                    if(listIterator.hasPrevious()){
+                        System.out.println(" Сейчас играет " + listIterator.previous().toString());
+                    }else{
+                        System.out.println("Это начало плейлиста");
+                        forward = true;
+                    }
+                    break;
+                case 3:
+                    break;
+                case 4:
+//                    printList(playList);
+                    break;
+                case 5:
+//                    printMenu();
+                    break;
+            }
         }
     }
 }

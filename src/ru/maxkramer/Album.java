@@ -40,7 +40,7 @@ public class Album {
             playList.add(this.songs.get(index));
             return true;
         }
-        System.out.printf("Альбом не содержит дорожку " + trackNumber);
+        System.out.printf("В этом альбоме нет " + trackNumber);
         return false;
     }
 
